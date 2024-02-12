@@ -3,18 +3,15 @@ from menu import *
 
 def main():
 
-    listaClientes = 'clientes.txt'
-
-    if not arquivoExiste(listaClientes):
-        criarArquivo(listaClientes)
+    listaClientes = 'appdecorridas/clientes.txt'
 
     if not arquivoExiste(listaClientes):
         criarArquivo(listaClientes)
 
     cadastraCliente(listaClientes)
 
-main()
-consultaClientes()
+cadastraCliente('appdecorridas/clientes.txt')
+print(clientes)
 
 
 
