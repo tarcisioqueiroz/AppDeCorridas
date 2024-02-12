@@ -1,6 +1,0 @@
-{'nome': 'tarcisio', 'cpf': '1234', 'cod': '001'}
-{'nome': 'cliente2', 'cpf': '4321', 'cod': '002'}
-{'nome': 'cliente3', 'cpf': '53587', 'cod': '003'}
-{'nome': 'cliente4', 'cpf': '123778', 'cod': '004'}
-{'nome': 'cliente5', 'cpf': '12347134', 'cod': '005'}
-{'nome': 'tarcisio', 'cpf': '123451234', 'cod': '006'}

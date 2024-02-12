@@ -8,9 +8,13 @@ def main():
     if not arquivoExiste(listaClientes):
         criarArquivo(listaClientes)
 
+    if not arquivoExiste(listaClientes):
+        criarArquivo(listaClientes)
+
     cadastraCliente(listaClientes)
 
+main()
 consultaClientes()
 
-    
+
 

@@ -1,3 +1,7 @@
+clientes = []
+motoristas = []
+corridas = []
+
 def arquivoExiste(nome):
     try:
         a = open(nome, 'rt')
@@ -15,8 +19,6 @@ def criarArquivo(nome):
         print('Houve um erro na criação do arquivo!')
     else:
         print(f'Arquivo {nome} criado com sucesso!');
-
-clientes = []
 
 def cadastraCliente(arquivo):
     with open(arquivo, 'a') as a:
@@ -47,3 +49,6 @@ def consultaClientes():
         else:
             print('Cliente não encontrado!')
             continue
+
+#motoristas
+        
