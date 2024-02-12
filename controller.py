@@ -51,6 +51,12 @@ def consultaClientes():
                 return
         
         print('Cliente não encontrado!')
+
+def listaClientes():
+    atualizaBase('appdecorridas/clientes.txt')
+    global clientes
+    for cliente in clientes:
+        print(cliente['nome'])
                 
 def atualizaBase(arquivo):
     global clientes

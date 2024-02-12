@@ -3,14 +3,14 @@ from menu import *
 
 def main():
 
-    listaClientes = 'appdecorridas/clientes.txt'
+    arquivoClientes = 'appdecorridas/clientes.txt'
 
-    if not arquivoExiste(listaClientes):
-        criarArquivo(listaClientes)
+    if not arquivoExiste(arquivoClientes):
+        criarArquivo(arquivoClientes)
 
-    cadastraCliente(listaClientes)
+    cadastraCliente(arquivoClientes)
 
-consultaClientes()
+listaTodosClientes()
 
 
 
