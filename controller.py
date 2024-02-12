@@ -38,7 +38,20 @@ def cadastraCliente(arquivo):
             print('Cliente cadastrado com sucesso!')
         
     atualizaBase(arquivo)
-
+        
+def consultaClientes():
+    while True:
+        atualizaBase('appdecorridas/clientes.txt')
+        global clientes
+        elementoBusca = input(str('Digite o cpf do cliente: '))
+        
+        for cliente in clientes:
+            if elementoBusca == cliente['cpf']:
+                print(f'o cliente {cliente["nome"]} foi encontrado!')
+                return
+        
+        print('Cliente não encontrado!')
+                
 def atualizaBase(arquivo):
     global clientes
     with open(arquivo, 'r') as a:
@@ -46,19 +59,6 @@ def atualizaBase(arquivo):
             cliente = eval(linha.strip())
             if cliente not in clientes:
                 clientes.append(cliente)
-        
-def consultaClientes():
-    atualizaBase('appdecorridas/clientes.txt')
-    global clientes
-    elementoBusca = input(str('Digite o nome do cliente: '))
-    
-    for cliente in clientes:
-        if elementoBusca in cliente['nome']:
-            print(f'o cliente {cliente['nome']} foi encontrado!')
-            exit()
-        else:
-            print('Cliente não encontrado!')
-            continue
 
 #motoristas
         

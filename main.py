@@ -10,8 +10,8 @@ def main():
 
     cadastraCliente(listaClientes)
 
-cadastraCliente('appdecorridas/clientes.txt')
-print(clientes)
+consultaClientes()
+
 
 
 
