@@ -2,3 +2,4 @@
 {'nome': 'marcos', 'cpf': '1234', 'contato': '12345'}
 {'nome': 'jose', 'cpf': '12345', 'contato': '12345'}
 {'nome': 'jonas', 'cpf': '123456', 'contato': '12345'}
+{'nome': 'tarcisio queiroz', 'cpf': '09090', 'contato': '87981553785'}

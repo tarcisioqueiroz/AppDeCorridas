@@ -40,17 +40,16 @@ def cadastraCliente(arquivo):
     atualizaBase(arquivo)
         
 def consultaClientes():
-    while True:
-        atualizaBase('appdecorridas/clientes.txt')
-        global clientes
-        elementoBusca = input(str('Digite o cpf do cliente: '))
+    atualizaBase('appdecorridas/clientes.txt')
+    global clientes
+    elementoBusca = input(str('Digite o cpf do cliente: '))
         
-        for cliente in clientes:
-            if elementoBusca == cliente['cpf']:
-                print(f'o cliente {cliente["nome"]} foi encontrado!')
-                return
+    for cliente in clientes:
+        if elementoBusca == cliente['cpf']:
+            print(f'o cliente {cliente["nome"]} foi encontrado!')
+            return
         
-        print('Cliente não encontrado!')
+    print('Cliente não encontrado!')
 
 def listaClientes():
     atualizaBase('appdecorridas/clientes.txt')
