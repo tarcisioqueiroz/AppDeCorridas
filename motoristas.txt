@@ -1,0 +1,4 @@
+{'nome': 'Tarcisio Queiroz', 'cpf': '123456789', 'contato': 'tarcisiodrums', 'placa': 'klb-9090', 'carro': 'ferrari', 'disp': True}
+{'nome': 'marcio', 'cpf': '1234', 'contato': '999999999999', 'placa': 'klb9090', 'carro': 'civicao', 'disp': True}
+{'nome': 'jorge', 'cpf': '123456', 'contato': '123456789', 'placa': 'klb9090', 'carro': 'civicao', 'disp': True}
+{'nome': '1234', 'cpf': 'kkkkk', 'contato': 'kkkkk', 'placa': 'kkkk', 'carro': 'kkkk', 'disp': True}

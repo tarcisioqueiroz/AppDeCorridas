@@ -7,6 +7,10 @@ def main():
     if not arquivoExiste(arquivoClientes):
         criarArquivo(arquivoClientes)
 
+    arquivoMotoristas = 'appdecorridas/motoristas.txt'
+    if not arquivoExiste(arquivoMotoristas):
+        criarArquivo(arquivoMotoristas)
+
     while True:
         menuPrincipal()
         op = input(str('Digite a opção desejada: \n'))
@@ -25,7 +29,7 @@ def main():
                 listaClientes()
 
             elif op_cliente == '0':
-                print('Saindo do MENU cliente...')
+                print('Saindo do MENU cliente...\n')
 
             else:
                 print('Opção Inválida')
@@ -33,5 +37,31 @@ def main():
         elif op == '4':
             break
 
+        elif op == '2':
+            menuMotorista()
+            op_motorista = input(str("Digite a opção desejada: "))
+
+            if op_motorista == '1':
+                cadastraMotorista(arquivoMotoristas)
+            
+            elif op_motorista == '2':
+                consultaMotoristas(arquivoMotoristas)
+
+            elif op_motorista == '3':
+                consultaPlacas(arquivoMotoristas)
+           
+            elif op_motorista == '4':
+                listaMotoristas(arquivoMotoristas)
+
+            elif op_motorista == '5':
+                print('Saindo do MENU motorista...\n')
+            
+            else:
+                print("Opção inválida")
+
+        elif op == '4':
+            break
+
 main()
+
 

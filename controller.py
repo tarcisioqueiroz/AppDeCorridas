@@ -67,3 +67,62 @@ def atualizaBase(arquivo):
 
 #motoristas
         
+def cadastraMotorista(arquivo):
+    global motoristas
+    atualizaBaseMotorista(arquivo)
+    with open(arquivo, 'a') as a:
+        motorista = {}
+        motorista['nome'] = input(str('digite seu nome e sobrenome: '))
+        motorista['cpf'] = input(str('digite o número do CPF: '))
+        motorista['contato'] = input(str('digite seu email ou telefone: '))
+        motorista['placa'] = input(str('digite a placa do seu carro: '))
+        motorista['carro'] = input(str('digite o modelo do carro: '))
+        motorista['disp'] = True
+        
+        motorista_existe = any(c['cpf'] == motorista['cpf'] for c in motoristas)
+
+        if motorista_existe:
+            print('Motorista já cadastrado!')
+        else:
+            a.write(str(motorista) + '\n')
+            print('Motorista cadastrado com sucesso!')
+        
+    atualizaBaseMotorista(arquivo)
+
+def consultaMotoristas(arquivo):
+    atualizaBaseMotorista(arquivo)
+    global motoristas
+    elementoBusca = input(str('Digite o cpf do motorista: \n'))
+        
+    for motorista in motoristas:
+        if elementoBusca == motorista['cpf']:
+            print(f'o motorista {motorista["nome"]} foi encontrado!')
+            return
+    
+    print('Motorista não encontrado!')
+
+def consultaPlacas(arquivo):
+    atualizaBaseMotorista(arquivo)
+    global motoristas
+    elementoBusca = input(str('Digite a placa do carro: '))
+        
+    for motorista in motoristas:
+        if elementoBusca == motorista['placa']:
+            print(f'a placa {motorista["placa"]} foi encontrada e pertence ao {motorista["nome"]}!')
+            return
+    
+    print('Placa não encontrada!')
+
+def listaMotoristas(arquivo):
+    atualizaBaseMotorista(arquivo)
+    global motoristas
+    for motorista in motoristas:
+        print(motorista['nome'])
+
+def atualizaBaseMotorista(arquivo):
+    global motoristas
+    with open(arquivo, 'r') as a:
+        for linha in a:
+            motorista = eval(linha.strip())
+            if motorista not in motoristas:
+                motoristas.append(motorista)

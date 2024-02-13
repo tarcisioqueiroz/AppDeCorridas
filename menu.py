@@ -17,8 +17,8 @@ def menuMotorista():
     print('1 - Cadastrar Motorista')
     print('2 - Consultar Motorista por CPF')
     print('3 - Consultar por placa do veiculo')
-    print('3 - Listar Motoristas')
-    print('4 - Voltara\n')
+    print('4 - Listar Motoristas')
+    print('5 - Voltar\n')
 
 def menuCorrida():
     print('\nMenu Corrida: \n')
