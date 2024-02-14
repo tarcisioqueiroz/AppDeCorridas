@@ -1,6 +1,10 @@
+import random
+
 clientes = []
 motoristas = []
-corridas = []
+corridasEmAndamento = []
+corridasFinalizadas = []
+
 
 def arquivoExiste(nome):
     try:
@@ -126,3 +130,38 @@ def atualizaBaseMotorista(arquivo):
             motorista = eval(linha.strip())
             if motorista not in motoristas:
                 motoristas.append(motorista)
+
+#corridas
+
+def cadastraCorrida(arquivo1, arquivo2, arquivo3):
+    atualizaBase(arquivo1)
+    atualizaBaseMotorista(arquivo2)
+
+    global corridasEmAndamento
+    global clientes
+    global motoristas
+
+    with open (arquivo3,'a') as a:
+        corrida = {}
+
+        while True:
+            chaveAleatoria = random.randint(100, 999)
+            corrida['COD'] = chaveAleatoria
+            cod_existe = any(c['COD'] == corrida['COD'] for c in corridasEmAndamento)
+
+            if cod_existe:
+                continue
+
+            else:
+                corrida['COD'] = chaveAleatoria
+                break
+
+        a.write(str(corrida)+'\n')
+
+def atualizaCorridasAtivas(arquivo):
+    global corridasEmAndamento
+    with open(arquivo, 'r') as a:
+        for linha in a:
+            corrida = eval(linha.strip())
+            if corrida not in corridasEmAndamento:
+                corridasEmAndamento.append(corrida)

@@ -1,1 +1,1 @@
-{'nome': 'Tarcisio Queiroz', 'cpf': '123456789', 'contato': 'tarcisiodrum1516378@gmail.com'}
+{'nome': 'Tarcisio Queiroz', 'cpf': '123456789', 'contato': '123456789'}

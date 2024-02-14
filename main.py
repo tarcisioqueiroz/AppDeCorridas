@@ -1,5 +1,6 @@
 from controller import *
 from menu import *
+import random
 
 def main():
 
@@ -10,6 +11,10 @@ def main():
     arquivoMotoristas = 'appdecorridas/motoristas.txt'
     if not arquivoExiste(arquivoMotoristas):
         criarArquivo(arquivoMotoristas)
+
+    arquivoCorridasEmAndamento = 'appdecorridas/arquivoCorridasEmAndamento.txt'
+    if not arquivoExiste(arquivoCorridasEmAndamento):
+        criarArquivo(arquivoCorridasEmAndamento)
 
     while True:
         menuPrincipal()
@@ -34,9 +39,6 @@ def main():
             else:
                 print('Opção Inválida')
 
-        elif op == '4':
-            break
-
         elif op == '2':
             menuMotorista()
             op_motorista = input(str("Digite a opção desejada: "))
@@ -59,9 +61,28 @@ def main():
             else:
                 print("Opção inválida")
 
+        elif op == '3':
+            menuMotorista()
+            op_motorista = input(str("Digite a opção desejada: "))
+
+            if op_motorista == '1':
+                cadastraCorrida(arquivoClientes, arquivoMotoristas, arquivoCorridasEmAndamento)
+            
+
         elif op == '4':
             break
 
-main()
+arquivoClientes = 'appdecorridas/clientes.txt'
+if not arquivoExiste(arquivoClientes):
+    criarArquivo(arquivoClientes)
 
+arquivoMotoristas = 'appdecorridas/motoristas.txt'
+if not arquivoExiste(arquivoMotoristas):
+    criarArquivo(arquivoMotoristas)
+
+arquivoCorridasEmAndamento = 'appdecorridas/arquivoCorridasEmAndamento.txt'
+if not arquivoExiste(arquivoCorridasEmAndamento):
+    criarArquivo(arquivoCorridasEmAndamento)
+    
+cadastraCorrida(arquivoClientes, arquivoMotoristas, arquivoCorridasEmAndamento)
 
