@@ -136,6 +136,7 @@ def atualizaBaseMotorista(arquivo):
 def cadastraCorrida(arquivo1, arquivo2, arquivo3):
     atualizaBase(arquivo1)
     atualizaBaseMotorista(arquivo2)
+    atualizaCorridasAtivas(arquivo3)
 
     global corridasEmAndamento
     global clientes
@@ -145,18 +146,48 @@ def cadastraCorrida(arquivo1, arquivo2, arquivo3):
         corrida = {}
 
         while True:
-            chaveAleatoria = random.randint(100, 999)
-            corrida['COD'] = chaveAleatoria
-            cod_existe = any(c['COD'] == corrida['COD'] for c in corridasEmAndamento)
+            elementoCliente = input(str('Digite o cpf do cliente: '))
+            corrida['CPFcliente'] = elementoCliente
+            clienteCorridaAtiva = any(c['CPFcliente'] == corrida['CPFcliente'] for c in corridasEmAndamento)
 
-            if cod_existe:
-                continue
+            if clienteCorridaAtiva:
+                print('Este cliente já possui uma corrida ativa')
+                op_cadstro = input('\nDeseja continuar cadastrando uma nova corrida? (s/n) ')
+                if op_cadstro == 's':
+                    continue
+                else:
+                    break
 
             else:
-                corrida['COD'] = chaveAleatoria
+                for cliente in clientes:
+                    if corrida['CPFcliente'] == cliente['cpf']:
+                        corrida['NOMEcliente'] = cliente['nome']
+                        cod_corrida(corrida)
+                        break
+                    else:
+                        print('Cliente não encontrado')
+                        op_cadstro = input('\nDeseja continuar cadastrando uma nova corrida? (s/n) ')
+                        if op_cadstro == 's':
+                            continue
+                        else:
+                            break
                 break
+        
+        corridasEmAndamento.append(corrida)
+        a.write(str(corrida) + '\n')
 
-        a.write(str(corrida)+'\n')
+def cod_corrida(corrida):
+    while True:
+        chaveAleatoria = random.randint(100, 999)
+        corrida['COD'] = chaveAleatoria
+        cod_existe = any(c['COD'] == corrida['COD'] for c in corridasEmAndamento)
+
+        if cod_existe:
+            continue
+
+        else:
+            corrida['COD'] = chaveAleatoria
+            break
 
 def atualizaCorridasAtivas(arquivo):
     global corridasEmAndamento
