@@ -65,7 +65,7 @@ def main():
             menuMotorista()
             op_motorista = input(str("Digite a opção desejada: "))
 
-            if op_motorista == '1':
+        if op_motorista == '1':
                 cadastraCorrida(arquivoClientes, arquivoMotoristas, arquivoCorridasEmAndamento)
             
 

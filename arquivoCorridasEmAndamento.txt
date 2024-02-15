@@ -1,1 +1,0 @@
-{'CPFcliente': '123456789', 'NOMEcliente': 'Tarcisio Queiroz', 'COD': 593}

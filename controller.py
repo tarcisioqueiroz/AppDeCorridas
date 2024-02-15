@@ -146,39 +146,42 @@ def cadastraCorrida(arquivo1, arquivo2, arquivo3):
         corrida = {}
 
         while True:
-            elementoCliente = input(str('Digite o cpf do cliente: '))
-            corrida['CPFcliente'] = elementoCliente
-            clienteCorridaAtiva = any(c['CPFcliente'] == corrida['CPFcliente'] for c in corridasEmAndamento)
+            cpfcliente = input(str('Digite o CPF do cliente: '))
+            for cliente in clientes:
+                if cliente['cpf'] == cpfcliente:
+                    cpf_cliente = input(str('Digite o CPF do cliente: '))
+                    corrida['cpfCliente'] = cpfcliente
+                    clienteExisteCorrida = any(c['cpf'] == cpf_cliente for c in corridasEmAndamento)
 
-            if clienteCorridaAtiva:
-                print('Este cliente já possui uma corrida ativa')
-                op_cadstro = input('\nDeseja continuar cadastrando uma nova corrida? (s/n) ')
-                if op_cadstro == 's':
-                    continue
+                    if clienteExisteCorrida:
+                        print('Cliente já cadastrado em uma corrida!')
+                        op_cad = input(str('Deseja continuar cadastrando uma nova corrida? (s/n) '))
+                        if op_cad == 's':
+                            break
+                        else:
+                            return
+                        
+                    else:
+                        corrida['nomeCliente'] = cliente['nome']
+                        corrida['cpfCliente'] = cliente['cpf']
+                        corrida['conrtatoCliente'] = cliente['contato']
+
+                        corridasEmAndamento.append(corrida)
+                        print(corridasEmAndamento)
                 else:
-                    break
-
-            else:
-                for cliente in clientes:
-                    if corrida['CPFcliente'] == cliente['cpf']:
-                        corrida['NOMEcliente'] = cliente['nome']
-                        cod_corrida(corrida)
+                    print('Cliente não cadastrado!')
+                    op_cadastro = input(str('Deseja continuar cadastrando uma nova corrida? (s/n) '))
+                    if op_cadastro == 's':
                         break
                     else:
-                        print('Cliente não encontrado')
-                        op_cadstro = input('\nDeseja continuar cadastrando uma nova corrida? (s/n) ')
-                        if op_cadstro == 's':
-                            continue
-                        else:
-                            break
-                break
+                        return
+                        
+
         
-        corridasEmAndamento.append(corrida)
-        a.write(str(corrida) + '\n')
 
 def cod_corrida(corrida):
     while True:
-        chaveAleatoria = random.randint(100, 999)
+        chaveAleatoria = random.randint(100000, 999999)
         corrida['COD'] = chaveAleatoria
         cod_existe = any(c['COD'] == corrida['COD'] for c in corridasEmAndamento)
 
