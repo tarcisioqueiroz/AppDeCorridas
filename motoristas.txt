@@ -1,1 +1,0 @@
-{'nome': 'Ruth Soares', 'cpf': '987654321', 'contato': '987654321', 'placa': 'KLB-9090', 'carro': 'Ferrari', 'disp': True}

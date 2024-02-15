@@ -1,20 +1,30 @@
 from controller import *
 from menu import *
-import random
 
 def main():
 
-    arquivoClientes = 'appdecorridas/clientes.txt'
+    criaPastaArquivos()
+    diretoriaAtual = criaPastaArquivos()
+
+    nomeArquivoClientes = 'clientes.txt'
+    arquivoClientes = diretoriaAtual / nomeArquivoClientes
     if not arquivoExiste(arquivoClientes):
         criarArquivo(arquivoClientes)
 
-    arquivoMotoristas = 'appdecorridas/motoristas.txt'
+    nomeArquivoMotoristas = 'motoristas.txt'
+    arquivoMotoristas = diretoriaAtual / nomeArquivoMotoristas
     if not arquivoExiste(arquivoMotoristas):
         criarArquivo(arquivoMotoristas)
 
-    arquivoCorridasEmAndamento = 'appdecorridas/arquivoCorridasEmAndamento.txt'
+    nomearquivoCorridasEmAndamento = 'corridasEmAndamento.txt'
+    arquivoCorridasEmAndamento = diretoriaAtual / nomearquivoCorridasEmAndamento
     if not arquivoExiste(arquivoCorridasEmAndamento):
         criarArquivo(arquivoCorridasEmAndamento)
+
+    nomeArquivoCorridasFlinalizadas = 'corridasFinalizadas.txt'
+    arquivoCorridasFinalizadas = diretoriaAtual / nomeArquivoCorridasFlinalizadas
+    if not arquivoExiste(arquivoCorridasFinalizadas):
+        criarArquivo(arquivoCorridasFinalizadas)
 
     while True:
         menuPrincipal()
@@ -65,24 +75,11 @@ def main():
             menuMotorista()
             op_motorista = input(str("Digite a opção desejada: "))
 
-        if op_motorista == '1':
-                cadastraCorrida(arquivoClientes, arquivoMotoristas, arquivoCorridasEmAndamento)
+#        if op_motorista == '1':
+#                cadastraCorrida(arquivoClientes, arquivoMotoristas, arquivoCorridasEmAndamento)
             
 
         elif op == '4':
             break
 
-arquivoClientes = 'appdecorridas/clientes.txt'
-if not arquivoExiste(arquivoClientes):
-    criarArquivo(arquivoClientes)
-
-arquivoMotoristas = 'appdecorridas/motoristas.txt'
-if not arquivoExiste(arquivoMotoristas):
-    criarArquivo(arquivoMotoristas)
-
-arquivoCorridasEmAndamento = 'appdecorridas/arquivoCorridasEmAndamento.txt'
-if not arquivoExiste(arquivoCorridasEmAndamento):
-    criarArquivo(arquivoCorridasEmAndamento)
-    
-cadastraCorrida(arquivoClientes, arquivoMotoristas, arquivoCorridasEmAndamento)
-
+main()

@@ -1,10 +1,23 @@
+from pathlib import Path
 import random
+import os
 
 clientes = []
 motoristas = []
 corridasEmAndamento = []
 corridasFinalizadas = []
 
+def criaPastaArquivos():
+    caminho_do_arquivo = Path(__file__).resolve().parent
+    pastaarquivos = 'src'
+
+    caminhoPastaArquivos = caminho_do_arquivo / pastaarquivos
+
+    if not caminhoPastaArquivos.exists():
+        caminhoPastaArquivos.mkdir()
+        print(f'Pasta {pastaarquivos} criada com sucesso!')
+
+    return caminhoPastaArquivos
 
 def arquivoExiste(nome):
     try:
