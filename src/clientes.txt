@@ -1,0 +1,2 @@
+{'nome': 'Tarcisio', 'cpf': '123456789', 'contato': '987654321'}
+{'nome': 'euclides', 'cpf': '1144732', 'contato': 'contato'}

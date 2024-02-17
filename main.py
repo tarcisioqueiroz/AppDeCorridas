@@ -82,4 +82,27 @@ def main():
         elif op == '4':
             break
 
-main()
+criaPastaArquivos()
+diretoriaAtual = criaPastaArquivos()
+
+nomeArquivoClientes = 'clientes.txt'
+arquivoClientes = diretoriaAtual / nomeArquivoClientes
+if not arquivoExiste(arquivoClientes):
+    criarArquivo(arquivoClientes)
+
+nomeArquivoMotoristas = 'motoristas.txt'
+arquivoMotoristas = diretoriaAtual / nomeArquivoMotoristas
+if not arquivoExiste(arquivoMotoristas):
+    criarArquivo(arquivoMotoristas)
+
+nomearquivoCorridasEmAndamento = 'corridasEmAndamento.txt'
+arquivoCorridasEmAndamento = diretoriaAtual / nomearquivoCorridasEmAndamento
+if not arquivoExiste(arquivoCorridasEmAndamento):
+    criarArquivo(arquivoCorridasEmAndamento)
+
+nomeArquivoCorridasFlinalizadas = 'corridasFinalizadas.txt'
+arquivoCorridasFinalizadas = diretoriaAtual / nomeArquivoCorridasFlinalizadas
+if not arquivoExiste(arquivoCorridasFinalizadas):
+    criarArquivo(arquivoCorridasFinalizadas)
+
+cadastraCorrida(arquivoClientes, arquivoMotoristas, arquivoCorridasEmAndamento)

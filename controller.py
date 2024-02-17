@@ -1,6 +1,5 @@
 from pathlib import Path
 import random
-import os
 
 clientes = []
 motoristas = []
@@ -146,52 +145,6 @@ def atualizaBaseMotorista(arquivo):
 
 #corridas
 
-def cadastraCorrida(arquivo1, arquivo2, arquivo3):
-    atualizaBase(arquivo1)
-    atualizaBaseMotorista(arquivo2)
-    atualizaCorridasAtivas(arquivo3)
-
-    global corridasEmAndamento
-    global clientes
-    global motoristas
-
-    with open (arquivo3,'a') as a:
-        corrida = {}
-
-        while True:
-            cpfcliente = input(str('Digite o CPF do cliente: '))
-            for cliente in clientes:
-                if cliente['cpf'] == cpfcliente:
-                    cpf_cliente = input(str('Digite o CPF do cliente: '))
-                    corrida['cpfCliente'] = cpfcliente
-                    clienteExisteCorrida = any(c['cpf'] == cpf_cliente for c in corridasEmAndamento)
-
-                    if clienteExisteCorrida:
-                        print('Cliente já cadastrado em uma corrida!')
-                        op_cad = input(str('Deseja continuar cadastrando uma nova corrida? (s/n) '))
-                        if op_cad == 's':
-                            break
-                        else:
-                            return
-                        
-                    else:
-                        corrida['nomeCliente'] = cliente['nome']
-                        corrida['cpfCliente'] = cliente['cpf']
-                        corrida['conrtatoCliente'] = cliente['contato']
-
-                        corridasEmAndamento.append(corrida)
-                        print(corridasEmAndamento)
-                else:
-                    print('Cliente não cadastrado!')
-                    op_cadastro = input(str('Deseja continuar cadastrando uma nova corrida? (s/n) '))
-                    if op_cadastro == 's':
-                        break
-                    else:
-                        return
-                        
-
-        
-
 def cod_corrida(corrida):
     while True:
         chaveAleatoria = random.randint(100000, 999999)
@@ -204,6 +157,75 @@ def cod_corrida(corrida):
         else:
             corrida['COD'] = chaveAleatoria
             break
+
+def cadastraCorrida(arquivoC, arquivoM, arquivoCEA):
+    atualizaBase(arquivoC)
+    atualizaBaseMotorista(arquivoM)
+    atualizaCorridasAtivas(arquivoCEA)
+
+    global corridasEmAndamento
+    global clientes
+    global motoristas
+
+    with open (arquivoCEA,'a') as a:
+        corrida = {}
+
+        while True:
+            cod_corrida(corrida)
+            while True:
+                cpfCliente = input(str('Digite o cpf do cliente:\n'))
+                corrida['CPFcliente'] = cpfCliente
+                validaClienteCorrida = any(c['CPFcliente'] == corrida['CPFcliente'] for c in corridasEmAndamento)
+                clientexiste = any(c['cpf'] == corrida['CPFcliente'] for c in clientes)
+
+                if clientexiste:
+                    if validaClienteCorrida:
+                        print('este cliente já se encontra em uma corrida')
+                        op_cliente = input(str('deseja realizar um novo cadastro:\n1 - sim\n2 - não\n'))
+                        if op_cliente == '1':
+                            continue
+                        else:
+                            return
+                    else:
+                        for cliente in clientes:
+                            if cliente['cpf'] == corrida['CPFcliente']:
+                                corrida['nomeCliente'] = cliente['nome']
+                                corrida['contatoCliente'] = cliente['contato']
+                            
+                        break
+                else:
+                    print('cliente não encontrado na base')
+                    op_cliente = input(str('deseja cadastrar um novo cliente:\n1 - sim\n2 - não\n'))
+                    if op_cliente == '1':
+                        cadastraCliente(arquivoC)
+                        print('\nInsira novamente os dados do cliente para cadastrar a corrida\n')
+                        continue
+                    else:
+                        return
+                    
+            while True:
+                for motorista in motoristas:
+                    if motorista['disp'] == True:
+                        motoristaAtual= motorista
+                        corrida['CPFmotorista'] = motorista['cpf']
+                        corrida['nomeMotorista'] = motorista['nome']
+                        motorista['disp'] = False
+                        motoristas[motoristas.index(motorista)] = motoristaAtual
+                        
+                        with open (arquivoM, 'w') as b:
+                            for motorista in motoristas:
+                                b.write(str(motorista) + '\n')
+
+                        break
+                    else:
+                        print('Nenhum motorista disponível no momento, tente novamente mais tarde')
+
+                break
+
+            a.write(str(corrida) + '\n')
+            atualizaBaseMotorista(arquivoM)
+            break
+
 
 def atualizaCorridasAtivas(arquivo):
     global corridasEmAndamento

@@ -1,0 +1,2 @@
+{'nome': 'wallas', 'cpf': '6565656565', 'contato': 'wallasdasnovinha', 'placa': 'klb9090', 'carro': 'marcopollo', 'disp': False}
+{'nome': 'januario', 'cpf': '123', 'contato': 'wallasdasnovinha', 'placa': 'klb9090', 'carro': 'marcopollo', 'disp': False}
