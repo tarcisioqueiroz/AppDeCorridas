@@ -91,7 +91,11 @@ def cadastraMotorista(arquivo):
         motorista['nome'] = input(str('digite seu nome e sobrenome: '))
         motorista['cpf'] = input(str('digite o número do CPF: '))
         motorista['contato'] = input(str('digite seu email ou telefone: '))
+        tamanhoplacas = 7
         motorista['placa'] = input(str('digite a placa do seu carro: '))
+        while len(motorista['placa']) != tamanhoplacas:
+            print('A placa na está em um padrão válido, digite novamente')
+            motorista['placa'] = input(str('digite a placa do seu carro: '))
         motorista['carro'] = input(str('digite o modelo do carro: '))
         motorista['disp'] = True
         
@@ -100,8 +104,12 @@ def cadastraMotorista(arquivo):
         if motorista_existe:
             print('Motorista já cadastrado!')
         else:
-            a.write(str(motorista) + '\n')
-            print('Motorista cadastrado com sucesso!')
+            placaexistente = any(c['placa'] == motorista['placa'] for c in motoristas)
+            if placaexistente:
+                print('Placa já cadastrada!')
+            else:
+                a.write(str(motorista) + '\n')
+                print('Motorista cadastrado com sucesso!')
         
     atualizaBaseMotorista(arquivo)
 
@@ -147,7 +155,7 @@ def atualizaBaseMotorista(arquivo):
 
 def cod_corrida(corrida):
     while True:
-        chaveAleatoria = random.randint(100000, 999999)
+        chaveAleatoria = str(random.randint(100000, 999999))
         corrida['COD'] = chaveAleatoria
         cod_existe = any(c['COD'] == corrida['COD'] for c in corridasEmAndamento)
 
@@ -221,11 +229,54 @@ def cadastraCorrida(arquivoC, arquivoM, arquivoCEA):
                         print('Nenhum motorista disponível no momento, tente novamente mais tarde')
 
                 break
-
+            
+            print(f'Corrida cadastrada com sucesso!\nCódigo da corrida: {corrida["COD"]}')
             a.write(str(corrida) + '\n')
             atualizaBaseMotorista(arquivoM)
             break
 
+def finalizaCorrida(arquivoCEA, arquivoCF, arquivoM):
+    atualizaCorridasAtivas(arquivoCEA)
+    atualizaBaseMotorista(arquivoM)
+    global corridasEmAndamento
+    global corridasFinalizadas
+    corridaFinalizada = {}
+
+    while True:
+        cod = input(str('Digite o código da corrida: '))
+
+        validaCodCorrida = any(c['COD'] == cod for c in corridasEmAndamento)
+
+        if validaCodCorrida:
+            for corrida in corridasEmAndamento:
+                if corrida['COD'] == cod:
+                    corridaFinalizada = corrida
+                    corridasEmAndamento.remove(corrida)
+                    corridasFinalizadas.append(corridaFinalizada)
+
+                    for motorista in motoristas:
+                        if motorista['cpf'] == corridaFinalizada['CPFmotorista']:
+                            motoristaAtual = motorista
+                            motorista['disp'] = True
+                            motoristas[motoristas.index(motorista)] = motoristaAtual
+
+                            with open(arquivoCEA, 'w') as a:
+                                for corrida in corridasEmAndamento:
+                                    a.write(str(corrida) + '\n')
+                            with open(arquivoCF, 'a') as a:
+                                a.write(str(corridaFinalizada) + '\n')
+                            with open(arquivoM, 'w') as b:
+                                for motorista in motoristas:
+                                    b.write(str(motorista) + '\n')
+                            print('Corrida finalizada com sucesso!')
+                            return
+        else:
+            print('Código de corrida não encontrado!')
+            op = input(str('deseja tentar novamente?\n1 - sim\n2 - não\n'))
+            if op == '1':
+                continue
+            else:
+                break
 
 def atualizaCorridasAtivas(arquivo):
     global corridasEmAndamento

@@ -105,4 +105,4 @@ arquivoCorridasFinalizadas = diretoriaAtual / nomeArquivoCorridasFlinalizadas
 if not arquivoExiste(arquivoCorridasFinalizadas):
     criarArquivo(arquivoCorridasFinalizadas)
 
-cadastraCorrida(arquivoClientes, arquivoMotoristas, arquivoCorridasEmAndamento)
+finalizaCorrida(arquivoCorridasEmAndamento, arquivoCorridasFinalizadas, arquivoMotoristas)
