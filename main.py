@@ -28,20 +28,22 @@ def main():
 
     while True:
         menuPrincipal()
-        op = input(str('Digite a opção desejada: \n'))
+        print('Digite a opção desejada:')
+        op = input(str('>>> '))
 
         if op == '1':
             menuCliente()
-            op_cliente = input(str('Digite a opção desejada: '))
+            print('Digite a opção desejada: ')
+            op_cliente = input(str('>>> '))
 
             if op_cliente == '1':
                 cadastraCliente(arquivoClientes)
 
             elif op_cliente == '2':
-                consultaClientes()
+                consultaClientes(arquivoClientes)
 
             elif op_cliente == '3':
-                listaClientes()
+                listaClientes(arquivoClientes)
 
             elif op_cliente == '0':
                 print('Saindo do MENU cliente...\n')
@@ -51,7 +53,8 @@ def main():
 
         elif op == '2':
             menuMotorista()
-            op_motorista = input(str("Digite a opção desejada: "))
+            print("Digite a opção desejada: ")
+            op_motorista = input(str('>>> '))
 
             if op_motorista == '1':
                 cadastraMotorista(arquivoMotoristas)
@@ -72,37 +75,36 @@ def main():
                 print("Opção inválida")
 
         elif op == '3':
-            menuMotorista()
-            op_motorista = input(str("Digite a opção desejada: "))
 
-#        if op_motorista == '1':
-#                cadastraCorrida(arquivoClientes, arquivoMotoristas, arquivoCorridasEmAndamento)
+            menuCorrida()
+            print("Digite a opção desejada: ")
+            op_corrida = input(str('>>> '))
+
+            if op_corrida == '1':
+                cadastraCorrida(arquivoClientes, arquivoMotoristas, arquivoCorridasEmAndamento)
+
+            elif op_corrida == '2':
+                finalizaCorrida(arquivoCorridasEmAndamento, arquivoCorridasFinalizadas, arquivoMotoristas)
             
+            elif op_corrida == '3':
+                consultaMotoristasON(arquivoMotoristas, arquivoCorridasEmAndamento)
 
+            elif op_corrida == '4':
+                consultaCorridaMotorista(arquivoMotoristas, arquivoCorridasEmAndamento)
+
+            elif op_corrida == '5':
+                consultaCorridaCliente(arquivoClientes, arquivoCorridasEmAndamento)
+
+            elif op_corrida == '6':
+                listaCorridas(arquivoCorridasEmAndamento, arquivoCorridasFinalizadas)
+        
+            elif op_corrida == '7':
+                print('Saindo do MENU corrida...\n')
+
+            else:
+                print('Opção inválida')
+               
         elif op == '4':
             break
 
-criaPastaArquivos()
-diretoriaAtual = criaPastaArquivos()
-
-nomeArquivoClientes = 'clientes.txt'
-arquivoClientes = diretoriaAtual / nomeArquivoClientes
-if not arquivoExiste(arquivoClientes):
-    criarArquivo(arquivoClientes)
-
-nomeArquivoMotoristas = 'motoristas.txt'
-arquivoMotoristas = diretoriaAtual / nomeArquivoMotoristas
-if not arquivoExiste(arquivoMotoristas):
-    criarArquivo(arquivoMotoristas)
-
-nomearquivoCorridasEmAndamento = 'corridasEmAndamento.txt'
-arquivoCorridasEmAndamento = diretoriaAtual / nomearquivoCorridasEmAndamento
-if not arquivoExiste(arquivoCorridasEmAndamento):
-    criarArquivo(arquivoCorridasEmAndamento)
-
-nomeArquivoCorridasFlinalizadas = 'corridasFinalizadas.txt'
-arquivoCorridasFinalizadas = diretoriaAtual / nomeArquivoCorridasFlinalizadas
-if not arquivoExiste(arquivoCorridasFinalizadas):
-    criarArquivo(arquivoCorridasFinalizadas)
-
-finalizaCorrida(arquivoCorridasEmAndamento, arquivoCorridasFinalizadas, arquivoMotoristas)
+main()

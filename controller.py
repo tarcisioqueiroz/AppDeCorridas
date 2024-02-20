@@ -36,10 +36,10 @@ def criarArquivo(nome):
     else:
         print(f'Arquivo {nome} criado com sucesso!');
 
-def cadastraCliente(arquivo):
+def cadastraCliente(arquivoC):
     global clientes
-    atualizaBase(arquivo)
-    with open(arquivo, 'a') as a:
+    atualizaBase(arquivoC)
+    with open(arquivoC, 'a') as a:
         cliente = {}
         cliente['nome'] = input(str('digite seu nome e sobrenome: '))
         cliente['cpf'] = input(str('digite o número do CPF: '))
@@ -53,10 +53,10 @@ def cadastraCliente(arquivo):
             a.write(str(cliente) + '\n')
             print('Cliente cadastrado com sucesso!')
         
-    atualizaBase(arquivo)
+    atualizaBase(arquivoC)
         
-def consultaClientes():
-    atualizaBase('appdecorridas/clientes.txt')
+def consultaClientes(arquivoC):
+    atualizaBase(arquivoC)
     global clientes
     elementoBusca = input(str('Digite o cpf do cliente: '))
         
@@ -67,8 +67,8 @@ def consultaClientes():
         
     print('Cliente não encontrado!')
 
-def listaClientes():
-    atualizaBase('appdecorridas/clientes.txt')
+def listaClientes(arquivoC):
+    atualizaBase(arquivoC)
     global clientes
     for cliente in clientes:
         print(cliente['nome'])
@@ -80,8 +80,6 @@ def atualizaBase(arquivo):
             cliente = eval(linha.strip())
             if cliente not in clientes:
                 clientes.append(cliente)
-
-#motoristas
         
 def cadastraMotorista(arquivo):
     global motoristas
@@ -107,6 +105,11 @@ def cadastraMotorista(arquivo):
             placaexistente = any(c['placa'] == motorista['placa'] for c in motoristas)
             if placaexistente:
                 print('Placa já cadastrada!')
+                opplaca = input(str('deseja recadastrar o motorista com outra placa?\n1 - sim\n2 - não\n'))
+                if opplaca == '1':
+                    cadastraMotorista(arquivo)
+                else:
+                    return
             else:
                 a.write(str(motorista) + '\n')
                 print('Motorista cadastrado com sucesso!')
@@ -150,8 +153,6 @@ def atualizaBaseMotorista(arquivo):
             motorista = eval(linha.strip())
             if motorista not in motoristas:
                 motoristas.append(motorista)
-
-#corridas
 
 def cod_corrida(corrida):
     while True:
@@ -278,6 +279,75 @@ def finalizaCorrida(arquivoCEA, arquivoCF, arquivoM):
             else:
                 break
 
+def consultaMotoristasON(arquivo2):
+    atualizaBaseMotorista(arquivo2)
+    global motoristas
+
+    if any(motorista['disp'] for motorista in motoristas):
+        print('Motoristas disponíveis para alugueis: ')
+        
+        for motorista in motoristas:
+            if motorista['disp'] == True:
+                print(f'- {motorista["nome"]}.')
+    else:
+        print('\nNão há motoristas disponíveis no momento...')
+        print('Tente novamente mais tarde.')
+
+def consultaCorridaMotorista(arquivoM, arquivoCEA):
+    atualizaBaseMotorista(arquivoM)
+    atualizaCorridasAtivas(arquivoCEA)
+    global motoristas
+    global corridasEmAndamento
+
+    cpfMotorista = input(str('Digite o cpf do motorista: '))
+    validaMotorista = any(m['cpf'] == cpfMotorista for m in motoristas)
+    if validaMotorista:
+        for motorista in motoristas:
+            if motorista['cpf'] == cpfMotorista:
+                for corrida in corridasEmAndamento:
+                    if corrida['CPFmotorista'] == motorista['cpf']:
+                        print(f'O motorista {motorista["nome"]} está em uma corrida com o código {corrida["COD"]}')
+                        return
+                print(f'O motorista {motorista["nome"]} não está em corrida no momento')
+                return
+    else:
+        print('Motorista não encontrado na base')
+
+def consultaCorridaCliente(arquivoC, arquivoCEA):
+    atualizaBase(arquivoC)
+    atualizaCorridasAtivas(arquivoCEA)
+    global clientes
+    global corridasEmAndamento
+
+    cpfCliente = input(str('Digite o cpf do motorista: '))
+    validaMotorista = any(m['cpf'] == cpfCliente for m in clientes)
+
+    if validaMotorista:
+        for cliente in clientes:
+            if cliente['cpf'] == cpfCliente:
+                for corrida in corridasEmAndamento:
+                    if corrida['CPFcliente'] == cliente['cpf']:
+                        print(f'O cliente {cliente["nome"]} está em uma corrida com o código {corrida["COD"]}')
+                        return
+                print(f'O cliente {cliente["nome"]} não está em corrida no momento')
+                return
+    else:
+        print('Cliente não encontrado na base')
+
+def listaCorridas(arquivoCEA, arquivoCF):
+    atualizaCorridasAtivas(arquivoCEA)
+    atualizaCorridasFinalizadas(arquivoCF)
+    global corridasEmAndamento
+    global corridasFinalizadas
+
+    print('Corridas em andamento: \n')
+    for corrida in corridasEmAndamento:
+        print(f'Corrida {corrida["COD"]} - Cliente: {corrida["nomeCliente"]} - Motorista: {corrida["nomeMotorista"]}')
+
+    print('\nCorridas finalizadas: \n')
+    for corrida in corridasFinalizadas:
+        print(f'Corrida {corrida["COD"]} - Cliente: {corrida["nomeCliente"]} - Motorista: {corrida["nomeMotorista"]}')
+
 def atualizaCorridasAtivas(arquivo):
     global corridasEmAndamento
     with open(arquivo, 'r') as a:
@@ -285,3 +355,11 @@ def atualizaCorridasAtivas(arquivo):
             corrida = eval(linha.strip())
             if corrida not in corridasEmAndamento:
                 corridasEmAndamento.append(corrida)
+
+def atualizaCorridasFinalizadas(arquivoCF):
+    global corridasFinalizadas
+    with open(arquivoCF, 'r') as a:
+        for linha in a:
+            corrida = eval(linha.strip())
+            if corrida not in corridasFinalizadas:
+                corridasFinalizadas.append(corrida)

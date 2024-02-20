@@ -1,1 +1,2 @@
 {'COD': '700914', 'CPFcliente': '123456789', 'nomeCliente': 'Tarcisio', 'contatoCliente': '987654321', 'CPFmotorista': '6565656565', 'nomeMotorista': 'wallas'}
+{'COD': '532949', 'CPFcliente': '1144732', 'nomeCliente': 'euclides', 'contatoCliente': 'contato', 'CPFmotorista': '123', 'nomeMotorista': 'januario'}
