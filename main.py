@@ -87,7 +87,7 @@ def main():
                 finalizaCorrida(arquivoCorridasEmAndamento, arquivoCorridasFinalizadas, arquivoMotoristas)
             
             elif op_corrida == '3':
-                consultaMotoristasON(arquivoMotoristas, arquivoCorridasEmAndamento)
+                consultaMotoristasON(arquivoMotoristas)
 
             elif op_corrida == '4':
                 consultaCorridaMotorista(arquivoMotoristas, arquivoCorridasEmAndamento)
