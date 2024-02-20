@@ -225,10 +225,10 @@ def cadastraCorrida(arquivoC, arquivoM, arquivoCEA):
                             for motorista in motoristas:
                                 b.write(str(motorista) + '\n')
 
-                        break
-                    else:
-                        print('Nenhum motorista disponível no momento, tente novamente mais tarde')
-
+                    break
+                else:
+                    print('Nenhum motorista disponível no momento, tente novamente mais tarde')
+                    continue
                 break
             
             print(f'Corrida cadastrada com sucesso!\nCódigo da corrida: {corrida["COD"]}')
@@ -239,6 +239,7 @@ def cadastraCorrida(arquivoC, arquivoM, arquivoCEA):
 def finalizaCorrida(arquivoCEA, arquivoCF, arquivoM):
     atualizaCorridasAtivas(arquivoCEA)
     atualizaBaseMotorista(arquivoM)
+    global motoristas
     global corridasEmAndamento
     global corridasFinalizadas
     corridaFinalizada = {}
