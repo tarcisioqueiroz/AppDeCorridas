@@ -90,7 +90,7 @@ def cadastraMotorista(arquivo):
         motorista['cpf'] = input(str('digite o número do CPF: '))
         motorista['contato'] = input(str('digite seu email ou telefone: '))
         tamanhoplacas = 7
-        motorista['placa'] = input(str('digite a placa do seu carro: '))
+        motorista['placa'] = input(str('digite a placa do seu carro, nos modelos\nABC1D23 ou ABC1234: '))
         while len(motorista['placa']) != tamanhoplacas:
             print('A placa na está em um padrão válido, digite novamente')
             motorista['placa'] = input(str('digite a placa do seu carro: '))
